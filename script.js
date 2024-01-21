@@ -61,6 +61,15 @@ document.getElementById("search-button").addEventListener("click", function () {
   processSearch(10);
 });
 
+// Search by enter key functionality
+document
+  .getElementById("search-field")
+  .addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      processSearch(10);
+    }
+  });
+
 // Show All Functionality
 document
   .getElementById("show-all-button")
