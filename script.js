@@ -21,7 +21,7 @@ const showSinglePhoneData = (singlePhoneData) => {
   modalTitle.innerText = singlePhoneData.name;
   const modalBody = document.getElementById("modal-body");
   modalBody.innerHTML = `
-  <p>Brand: ${singlePhoneData.name}</p>
+  <p>Brand: ${singlePhoneData.brand}</p>
   <p>Release Date: ${
     singlePhoneData.releaseDate ? singlePhoneData.releaseDate : "No data found"
   }</p>
@@ -132,5 +132,3 @@ const loader = (isTrue) => {
     loaderElement.classList.add("d-none");
   }
 };
-
-// Phone Details Function
