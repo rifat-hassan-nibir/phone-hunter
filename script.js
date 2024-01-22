@@ -1,9 +1,54 @@
+// Load all phones data
 const loadPhones = async (searchText, dataLimit) => {
   const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
   res = await fetch(url);
   data = await res.json();
   displayPhones(data.data, dataLimit);
 };
+
+// Load single phone data
+const loadSinglePhoneData = async (slug) => {
+  const url = `https://openapi.programming-hero.com/api/phone/${slug}`;
+  res = await fetch(url);
+  data = await res.json();
+  showSinglePhoneData(data.data);
+};
+
+// Showing single phone data
+const showSinglePhoneData = (singlePhoneData) => {
+  console.log(singlePhoneData);
+  const modalTitle = document.getElementById("staticBackdropLabel");
+  modalTitle.innerText = singlePhoneData.name;
+  const modalBody = document.getElementById("modal-body");
+  modalBody.innerHTML = `
+  <p>Brand: ${singlePhoneData.name}</p>
+  <p>Release Date: ${
+    singlePhoneData.releaseDate ? singlePhoneData.releaseDate : "No data found"
+  }</p>
+  <p>Chipset: ${
+    singlePhoneData.mainFeatures.chipSet
+      ? singlePhoneData.mainFeatures.chipSet
+      : "No data found"
+  }</p>
+  <p>Display Size: ${
+    singlePhoneData.mainFeatures.displaySize
+      ? singlePhoneData.mainFeatures.displaySize
+      : "No data found"
+  }</p>
+  <p>Memory: ${
+    singlePhoneData.mainFeatures.memory
+      ? singlePhoneData.mainFeatures.memory
+      : "No data found"
+  }</p>
+  <p>Storage: ${
+    singlePhoneData.mainFeatures.storage
+      ? singlePhoneData.mainFeatures.storage
+      : "No data found"
+  }</p>
+  `;
+};
+
+loadSinglePhoneData();
 
 // Display Phones
 const displayPhones = (phones, dataLimit) => {
@@ -36,7 +81,8 @@ const displayPhones = (phones, dataLimit) => {
             <img src="${phone.image}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">${phone.phone_name}</h5>
-              <button class = "btn btn-primary">Show Details</button>
+              <button onclick = "loadSinglePhoneData('${phone.slug}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Show Details
+              </button>
             </div>
       </div>
     `;
@@ -86,3 +132,5 @@ const loader = (isTrue) => {
     loaderElement.classList.add("d-none");
   }
 };
+
+// Phone Details Function
